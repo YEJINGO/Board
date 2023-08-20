@@ -78,9 +78,9 @@ configurations {
 	querydsl.extendsFrom compileClasspath
 }
 //querydsl 추가 끝
-bootJar {
-	enabled = false
-}
+//bootJar {
+//	enabled = false
+//}
 
 jar {
 	enabled = false
