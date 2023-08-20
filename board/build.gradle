@@ -82,6 +82,6 @@ configurations {
 //	enabled = false
 //}
 
-tasks.named("jar"){
+jar {
 	enabled = false
 }
