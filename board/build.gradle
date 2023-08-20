@@ -81,6 +81,7 @@ configurations {
 bootJar {
 	enabled = false
 }
+
 jar {
 	enabled = false
 }
