@@ -41,9 +41,3 @@ out/
 /src/main/resources/application.properties
 /src/main/java/practice/board/BoardApplication.java
 /src/test/java/practice/board/BoardApplicationTests.java
-/build.gradle
-/gradle/wrapper/gradle-wrapper.jar
-/gradle/wrapper/gradle-wrapper.properties
-/gradlew
-/gradlew.bat
-/settings.gradle
