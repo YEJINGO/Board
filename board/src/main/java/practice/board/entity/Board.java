@@ -1,9 +1,6 @@
 package practice.board.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,7 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,7 +22,7 @@ public class Board {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<BoardImage> boardImage = new ArrayList<>();
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
@@ -34,7 +31,7 @@ public class Board {
     private List<Comment> comment = new ArrayList<>();
     public void update(String title, String content) {
         this.title = title;
-        this.content = title;
+        this.content = content;
         this.modifiedAt = LocalDateTime.now();
     }
     @Builder

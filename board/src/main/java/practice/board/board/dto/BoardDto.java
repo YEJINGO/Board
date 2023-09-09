@@ -22,12 +22,4 @@ public class BoardDto {
         this.title = title;
         this.content = content;
     }
-
-//    public void BordImageDto(Long id, String title, String content) {
-//        this.id = id;
-//        this.title = title;
-//        this.content = content;
-////        this.boardImage = boardImage;
-//    }
-
 }

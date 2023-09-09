@@ -5,7 +5,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import practice.board.common.GlobalException;
+import practice.board.config.auth.LoginMember;
 import practice.board.entity.Member;
+import practice.board.member.dto.ChangePasswordRequest;
 import practice.board.member.dto.FindPassword;
 import practice.board.member.dto.FindUserDto;
 
@@ -52,11 +55,6 @@ public class MemberFindService {
             String str = getTempPassword();
             findMember.setPassword(bCryptPasswordEncoder.encode(str));
             memberRepository.save(findMember);
-//
-//            PasswordMailDto passwordMailDto = new PasswordMailDto();
-//            passwordMailDto.setAddress(findMember.getEmail());
-//            passwordMailDto.setTitle("임시 비밀번호 안내 이메일 입니다.");
-//            passwordMailDto.setMessage("안녕하세요. 임시 비밀번호 안내 관련 이메일 입니다.\n" + "회원님의 임시 비밀번호는 " + str+" 입니다. \n"+"로그인 후 비밀 변호를 변경해주세요.");
 
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             simpleMailMessage.setTo(findMember.getEmail());
@@ -68,6 +66,22 @@ public class MemberFindService {
         } else {
             throw new Exception("아이디가 존재하지 않습니다.");
         }
+    }
+
+    public void changePassword(ChangePasswordRequest changePasswordRequest, LoginMember loginMember) {
+        Member member = memberRepository.findByEmail(loginMember.getMember().getEmail());
+
+        String newPassword = changePasswordRequest.getNewPassword();
+        String currentPassword = changePasswordRequest.getCurrentPassword();
+        String registeredPassword = member.getPassword();
+
+        if (bCryptPasswordEncoder.matches(currentPassword, registeredPassword)) {
+            member.passwordUpdate(bCryptPasswordEncoder.encode(newPassword));
+            memberRepository.save(member);
+        } else {
+            throw new GlobalException("현재 비밀번호가 일치하지 않습니다");
+        }
+        System.out.println("비밀번호 변경완료");
     }
 
     public String getTempPassword() {

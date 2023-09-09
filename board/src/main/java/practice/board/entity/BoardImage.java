@@ -1,31 +1,32 @@
 package practice.board.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BoardImage {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "IMAGE_ID")
     private Long id;
     private String image;
+    private String imageKey;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "BOARD_ID")
     private Board board;
-
     @Builder
-    public BoardImage(String image,Board board) {
+    public BoardImage(String image, String imageKey, Board board) {
         this.image = image;
+        this.imageKey = imageKey;
         this.board = board;
     }
-
+    public void update(String image) {
+        this.image = image;
+    }
 }

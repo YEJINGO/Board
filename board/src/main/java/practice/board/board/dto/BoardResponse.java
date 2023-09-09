@@ -13,11 +13,11 @@ public class BoardResponse {
 
     private String title;
     private String content;
-    private String image;
+    private List<String> image;
     private LocalDateTime createdAt;
 
     @Builder
-    public BoardResponse(String title, String content, String image, LocalDateTime createdAt) {
+    public BoardResponse(String title, String content, List<String> image, LocalDateTime createdAt) {
         this.title = title;
         this.content = content;
         this.image = image;

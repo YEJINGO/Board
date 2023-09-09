@@ -17,7 +17,7 @@ import practice.board.config.auth.LoginMemberDetailService;
 public class CommentController {
 
     private final CommentService commentService;
-    @PostMapping(value = "/{boardId}")
+    @PostMapping("/{boardId}")
     @ResponseBody
     public ResponseEntity<CommentResponse> createComment(@PathVariable Long boardId,
                                                          @RequestBody CommentRequest request,

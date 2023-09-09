@@ -10,6 +10,7 @@ import practice.board.board.dto.*;
 import practice.board.config.auth.LoginMember;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,23 +20,23 @@ public class BoardController {
 
     // 게시물 전체 조회 api
     @GetMapping
-    public BoardTotalResponse boards(Pageable pageable)      {
+    public BoardTotalResponse boards(Pageable pageable) {
         return boardService.getBoards(pageable);
     }
 
 
     // 특정 게시물 조회 api
-    @GetMapping("/{id}")
-    public ResponseEntity<BoardResponse> board(@PathVariable Long id) {
-        return boardService.getBoard(id);
+    @GetMapping("/{boardId}")
+    public ResponseEntity<GetBoardResponse> board(@PathVariable Long boardId) {
+        return boardService.getBoard(boardId);
     }
 
     // 게시물 작성 api
     @PostMapping
     public ResponseEntity<BoardResponse> create(@AuthenticationPrincipal LoginMember loginMember,
                                                 @RequestPart(value = "boardRequest") BoardRequest request,
-                                                @RequestPart(value = "file") MultipartFile multipartFile) throws IOException {
-        return boardService.create(loginMember, request, multipartFile);
+                                                @RequestPart(value = "file") List<MultipartFile> multipartFiles) throws IOException {
+        return boardService.create(loginMember, request, multipartFiles);
     }
 
     // 게시물 수정 api
@@ -43,8 +44,14 @@ public class BoardController {
     public ResponseEntity<BoardUpdateResponse> update(@AuthenticationPrincipal LoginMember loginMember,
                                                       @PathVariable Long boardId,
                                                       @RequestPart(value = "boardUpdateRequest") BoardUpdateRequest request,
-                                                      @RequestPart(value = "file") MultipartFile multipartFile) throws IOException {
+                                                      @RequestPart(value = "file") List<MultipartFile> multipartFiles) throws IOException {
 
-        return boardService.update(loginMember, boardId, request, multipartFile);
+        return boardService.update(loginMember, boardId, request, multipartFiles);
+    }
+    // 게시물 삭제
+    @DeleteMapping("/{boardId}")
+    public void delete(@AuthenticationPrincipal LoginMember loginMember,
+                       @PathVariable Long boardId) {
+        boardService.delete(loginMember, boardId);
     }
 }
