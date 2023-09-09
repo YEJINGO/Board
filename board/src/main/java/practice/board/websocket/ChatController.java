@@ -27,6 +27,7 @@ public class ChatController {
      */
     @MessageMapping("/chat/message")
     public void message(ChatMessage message) {
+        //로그인 유저네임으로 nickName지정
         String nickname = loginMember.getUsername();
         // 로그인 회원 정보로 대화명 설정
         message.setSender(nickname);
