@@ -39,7 +39,8 @@ dependencies {
 	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
     // 이메일 발송
     implementation 'org.springframework.boot:spring-boot-starter-mail'
-
+	// 웹소켓
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'com.mysql:mysql-connector-j'

@@ -56,7 +56,7 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(new AuthorizationFilter(jwtUtils), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests(authorize -> authorize
-                        .antMatchers("/api/member/signup", "/api/member/login","/api/member/find/**").permitAll() // 두가지는 허용
+                        .antMatchers("/api/member/signup", "/api/member/login","/api/member/find/**","/chat/**").permitAll() // 두가지는 허용
                         .anyRequest().authenticated() // 나머지는 인증절차 필요
                 )
                 .build();
