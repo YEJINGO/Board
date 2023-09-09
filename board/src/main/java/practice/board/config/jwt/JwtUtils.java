@@ -49,7 +49,6 @@ public class JwtUtils {
         bytes = Base64.getDecoder().decode(refreshSecretKey); //Base64로 인코딩되어 있는 것을, 값을 가져와서(getDecoder()) 디코드하고(decode(secretKey)), byte 배열로 반환
         refreshKey = Keys.hmacShaKeyFor(bytes); //반환된 bytes 를 hmacShaKeyFor() 메서드를 사용해서 Key 객체에 넣기
     }
-
     /**
      * 적절한 설정을 통해 Access 토큰을 생성하여 반환
      * @param authentication
