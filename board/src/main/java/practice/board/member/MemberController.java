@@ -1,5 +1,9 @@
 package practice.board.member;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +16,7 @@ import practice.board.member.dto.MemberLoginRequest;
 import practice.board.member.dto.MemberSignupRequest;
 import practice.board.member.dto.TokenDto;
 
+@Api(tags = {"유저 API 정보를 제공하는 Controller"})
 @RestController
 @RequestMapping("/api/member")
 @RequiredArgsConstructor
@@ -19,7 +24,8 @@ import practice.board.member.dto.TokenDto;
 public class MemberController {
     private final MemberService memberService;
 
-    // 회원 가입
+    @ApiOperation(value = "회원가입",notes = "회원가입 필수" )
+    @GetMapping("/posts")
     @PostMapping("/signup")
     public void signup(@RequestBody MemberSignupRequest request) {
         memberService.signup(request);
