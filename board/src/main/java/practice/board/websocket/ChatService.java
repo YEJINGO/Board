@@ -1,6 +1,7 @@
 package practice.board.websocket;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import practice.board.websocket.dto.MessageType;
 public class ChatService {
 
     private final ChannelTopic channelTopic;
+    @Qualifier("chatRedisTemplate")
     private final RedisTemplate redisTemplate;
     private final ChatRoomRepository chatRoomRepository;
 

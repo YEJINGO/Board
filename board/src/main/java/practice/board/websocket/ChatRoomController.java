@@ -33,7 +33,6 @@ public class ChatRoomController {
     public String rooms(Model model) {
         return "/chat/room";
     }
-
     @GetMapping("/rooms")
     @ResponseBody
     public List<ChatRoom> room() {

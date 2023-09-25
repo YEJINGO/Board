@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import practice.board.config.auth.LoginMember;
 import practice.board.config.auth.LoginMemberDetailService;
+import practice.board.entity.Member;
+import practice.board.entity.MemberEnum;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -144,7 +146,6 @@ public class JwtUtils {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.getWriter().write(objectMapper.writeValueAsString(new ErrorResponse(errorMessage)));
     }
-
     static class ErrorResponse {
         private String message;
 
@@ -191,22 +192,22 @@ public class JwtUtils {
         return null;
     }
 
-//    // 로그인 유저 생성
-//    public LoginMember getLoginUser(String token,Key key) {
-//        Claims claims = Jwts.parserBuilder()
+    // 로그인 유저 생성
+    public LoginMember getLoginUser(String token) {
+        Claims claims = Jwts.parserBuilder()
 //                .setSigningKey(key)
-//                .build()
-//                .parseClaimsJws(token)
-//                .getBody();
-//        Long id = claims.get("id", Long.class);
-//        String name = claims.get("name", String.class);
-//        String role = claims.get("role", String.class);
-//        Member member = Member.builder()
-//                .id(id)
-//                .name(name)
-//                .role(MemberEnum.valueOf(role))
-//                .build();
-//        return new LoginMember(member);
-//    }
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        Long id = claims.get("id", Long.class);
+        String name = claims.get("name", String.class);
+        String role = claims.get("role", String.class);
+        Member member = Member.builder()
+                .id(id)
+                .name(name)
+                .role(MemberEnum.valueOf(role))
+                .build();
+        return new LoginMember(member);
+    }
 
 }
